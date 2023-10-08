@@ -10,8 +10,8 @@ class RegisterProvider with ChangeNotifier{
   TextEditingController textEditingControllerEmail=TextEditingController();
   TextEditingController textEditingControllerPassword=TextEditingController();
 
-  String? _message;
-  bool? _status;
+ late String _message;
+  late bool _status;
   String get message=>_message!;
   bool get status=>_status!;
   bool obscureText=true;

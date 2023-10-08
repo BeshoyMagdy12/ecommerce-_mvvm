@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/sherrd_widget/custom_text_form_faild.dart';
+import '../../../nav_bar_root/presentation/view/nav_bar_root_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -81,7 +82,14 @@ class LoginScreen extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                );                            }
+                                );
+                                Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                    builder: (context) => NavBarRootScreen(),
+                                  ),
+                                      (route) =>true , // Predicate to remove all previous routes
+                                );
+                              }
                               },
                             shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(8).w),
                             padding: EdgeInsets.symmetric(horizontal: 130,vertical: 8).w,

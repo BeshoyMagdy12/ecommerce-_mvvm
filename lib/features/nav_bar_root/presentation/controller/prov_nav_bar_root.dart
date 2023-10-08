@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../categories/presentation/view/categories_screen.dart';
 import '../../../home/presentation/view/home_screen.dart';
+import '../../../profile/presentation/view/profile_screen.dart';
 
 class ProvNavBarRoot extends ChangeNotifier{
 
@@ -33,7 +34,7 @@ class ProvNavBarRoot extends ChangeNotifier{
     CategoriesScreen(),
     Center(child: Text("favorite"),),
     Center(child: Text("cart"),),
-    Center(child: Text("Profile"),),
+    ProfileScreen(),
 
 
 

@@ -7,18 +7,28 @@ class ApiService {
 
   static void initialize() {
     _dio.options.baseUrl = "https://student.valuxapps.com/api/";
-    _dio.options.connectTimeout = Duration(seconds: 5000) ;
-    _dio.options.receiveTimeout =Duration(seconds: 3000) ;
-    _dio.options.headers={
-      "Authorization":CasheHelper.getDataString(key: "token"),
-      "lang":"en"
-    };
+    _dio.options.connectTimeout =const Duration(seconds: 5000) ;
+    _dio.options.receiveTimeout =const Duration(seconds: 3000) ;
+
+    // Get the token from CasheHelper
+ String? token = CasheHelper.getDataString(key: "token");
+
+    // Check if the token is not null or empty before setting the "Authorization" header
+    if (token != null && token.isNotEmpty) {
+      _dio.options.headers = {
+        "Authorization": "Bearer $token",
+        "lang": "en"
+      };
+    } else {
+      // Handle the case when the token is null or empty
+      print("Token is null or empty");
+    }
   }
 
   // Static method for making a GET request
-  static Future<Response<dynamic>> get(String endpoint) async {
+  static Future<Response<dynamic>> get(String endpoint,[Options? options]) async {
     try {
-      final response = await _dio.get(endpoint);
+      final response = await _dio.get(endpoint,options:options );
       return response;
     } catch (e) {
       throw e;

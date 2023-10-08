@@ -1,12 +1,10 @@
 import 'package:ecco_app/core/utilities/AppRouter.dart';
-import 'package:ecco_app/core/utilities/response.dart';
-import 'package:ecco_app/features/login/presentation/view_model/prov_login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/sherrd_widget/custom_text_form_faild.dart';
-import '../view_model/prov_reg.dart';
+import '../controller/prov_reg.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -151,20 +149,3 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 }
-// void _showBottomSheet(BuildContext context) {
-//   showModalBottomSheet(
-//     context: context,
-//     builder: (BuildContext context) {
-//       return Container(
-//         padding: EdgeInsets.all(20).w,
-//         // Customize your bottom sheet content here
-//         child: Text(
-//           'This is a Bottom Sheet!',
-//           style: TextStyle(fontSize: 24.0),
-//         ),
-//       );
-//     },
-//   );
-// }
-//
-//

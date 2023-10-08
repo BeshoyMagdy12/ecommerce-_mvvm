@@ -25,7 +25,8 @@ class NavBarRootScreen extends StatelessWidget {
         },
       ),
       appBar: AppBar(
-        title:const Text("TOKOTO"),
+        automaticallyImplyLeading: false,
+        title: const Text("TOKOTO"),
       ),
       body:context.read<ProvNavBarRoot>().screens[context.read<ProvNavBarRoot>().currrentIndex],
     );

@@ -15,58 +15,82 @@ class HomeProvider with ChangeNotifier {
 //----------------get all product--------------------------
   List<ProductModel> _products = [];
 
-  List<ProductModel>? get products => _products;
 
   Future<void> getProducts() async {
-    await homeRepo.getAllProduct().then((p) {
-      _products = p;
+    try {
+      final products = await homeRepo.getAllProduct();
+
+      _products = products;
 
       print(products!.length);
       notifyListeners();
-    }).catchError((e) {
-      debugPrint("problem in HomeProvider $e");
-    });
+    } catch (e) {
+      debugPrint("Problem in HomeProvider: $e");
+    }
   }
+  List<ProductModel>? get products => _products;
+
 
 //----------------------get all banners-------------------------------------------
 
   List<BannersModel> _banners = [];
+
   Future<void> getBanners() async {
-   await homeRepo.getAllBanner().then((value) {
-      _banners = value!;
-      notifyListeners();
-    }).catchError((e) {
-      debugPrint("problem in HomeProvider $e");
-    });
+    try {
+      final value = await homeRepo.getAllBanner();
+
+      if (value != null) {
+        _banners = value;
+        notifyListeners();
+      } else {
+        debugPrint("getAllBanner returned null");
+      }
+    } catch (e) {
+      debugPrint("Problem in HomeProvider: $e");
+    }
   }
+
   List<BannersModel>? get banners => _banners;
+
 
 //---------------------------------------------------------------------------
 
 
 //----------------------------getAllCategores----------------------------------
-List<CategoresModel> _categores=[];
-Future<void> getCategores()async{
- await homeRepo.getAllCategores().then((value){
-    _categores=value!;
+  List<CategoresModel> _categores = [];
 
-    notifyListeners();
-  }).catchError((e){
-    debugPrint("problem in HomeProvider $e");
+  Future<void> getCategores() async {
+    try {
+      final value = await homeRepo.getAllCategores();
 
-  });
-}
+      if (value != null) {
+        _categores = value;
+        notifyListeners();
+      } else {
+        debugPrint("getAllCategores returned null");
+      }
+    } catch (e) {
+      debugPrint("Problem in HomeProvider: $e");
+    }
+  }
+
   List<CategoresModel>? get cat => _categores;
+
 //------------------------------------------------------------------------------
 
-  List<ProductModel> _filterProduct=[];
+  List<ProductModel> _filterProduct = [];
 
-void filiterProduct({required String input})async{
 
-  _filterProduct= await _products.where((element) => element.name!.toLowerCase().startsWith(input.toLowerCase())).toList();
+  void filterProduct({required String input}) {
+    _filterProduct = _products
+        .where((element) =>
+    element.name != null &&
+        element.name!.toUpperCase().startsWith(input.toUpperCase()))
+        .toList();
+    print(_filterProduct.length);
     notifyListeners();
-}
-  List<ProductModel>? get filterProduct=>_filterProduct;
+  }
+  List<ProductModel> get filterProducts => _filterProduct;
 
 
 }

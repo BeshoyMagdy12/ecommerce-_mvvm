@@ -1,4 +1,3 @@
-import 'package:ecco_app/features/login/data/repository/repo_login.dart';
 import 'package:ecco_app/features/login/data/repository/repo_reg_Impelment.dart';
 import 'package:ecco_app/features/login/presentation/view_model/prov_login.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +9,11 @@ import 'core/utilities/cash_healper.dart';
 import 'features/home/data/repository/home_repo_impl.dart';
 import 'features/home/presentation/controller/home_prov.dart';
 import 'features/nav_bar_root/presentation/controller/prov_nav_bar_root.dart';
+import 'features/profile/data/repo/progile_repo_impl.dart';
+import 'features/profile/presentation/controller/prov_profile.dart';
 import 'features/register/data/repository/repoReg.dart';
 import 'features/register/data/repository/repo_reg_Impelment.dart';
-import 'features/register/presentation/view_model/prov_reg.dart';
+import 'features/register/presentation/controller/prov_reg.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,6 +65,11 @@ class MyApp extends StatelessWidget {
             ),
             ChangeNotifierProvider(
               create: (_) => ProvNavBarRoot(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => ProvProfile(
+                profileRepo: ProfileRepoImpl(),
+              ),
             ),
           ],
           child: MaterialApp(

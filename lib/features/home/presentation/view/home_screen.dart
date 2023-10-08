@@ -22,8 +22,8 @@ class HomeScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 20, left: 20, top: 5).w,
             child: CustomTextFormField(
-              onChanged: (p0) {
-                Provider.of<HomeProvider>(context).filiterProduct(input:p0);
+              onChanged: (input) {
+                context.read<HomeProvider>().filterProduct(input: input);
               },
               prefixIcon: Icon(Icons.search),
               hintText: "Search",
@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20).w,
-            child: Row(
+            child:const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
@@ -121,11 +121,11 @@ class _CustomGridViewItemState extends State<CustomGridViewItem> {
   @override
   Widget build(BuildContext context) {
     HomeProvider prov = Provider.of<HomeProvider>(context);
-     if(prov.filterProduct!.isNotEmpty){
+     if(prov.filterProducts.isNotEmpty){
        return  GridView.builder(
            shrinkWrap: true,
            physics: NeverScrollableScrollPhysics(),
-           itemCount: prov.filterProduct!.isEmpty?prov.products!.length:prov.filterProduct!.length,
+           itemCount: prov.filterProducts.isEmpty?prov.products!.length:prov.filterProducts.length,
            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                crossAxisCount: 2,
                crossAxisSpacing: 10,
@@ -133,7 +133,7 @@ class _CustomGridViewItemState extends State<CustomGridViewItem> {
                childAspectRatio: 3.2/4
            ),
            itemBuilder: (ctx, idx) {
-             print(prov.filterProduct!.length);
+             print(prov.filterProducts.length);
              return Container(
                margin:const EdgeInsets.all(10),
                //  height: 280,
@@ -147,7 +147,7 @@ class _CustomGridViewItemState extends State<CustomGridViewItem> {
                  children: [
                    Expanded(
                      child: Image.network(
-                   prov.filterProduct!.isEmpty?    prov.products![idx].image.toString():prov.filterProduct![idx].image.toString(),
+                   prov.filterProducts.isEmpty?    prov.products![idx].image??"":prov.filterProducts[idx].image??"",
                        fit: BoxFit.fill,
                        width: double.infinity,
                        // height: double.infinity,
@@ -159,8 +159,8 @@ class _CustomGridViewItemState extends State<CustomGridViewItem> {
                    Padding(
                      padding: const EdgeInsets.symmetric(horizontal: 5).w,
                      child: Text(
-                       prov.filterProduct!.isEmpty?
-                       prov.products![idx].name!:prov.filterProduct![idx].name.toString(),
+                       prov.filterProducts.isEmpty?
+                       prov.products![idx].name??"":prov.filterProducts[idx].name??"",
                        style: const TextStyle(
                            fontWeight: FontWeight.bold,
                            fontSize: 16,
@@ -184,8 +184,8 @@ class _CustomGridViewItemState extends State<CustomGridViewItem> {
                                FittedBox(
                                    fit: BoxFit.scaleDown,
                                    child: Text(
-                                     "${        prov.filterProduct!.isEmpty?
-                                     prov.products![idx].price!:prov.filterProduct![idx].price.toString()} \$",
+                                     "${   prov.filterProducts.isEmpty?
+                                     prov.products![idx].price!:prov.filterProducts[idx].price??""} \$",
                                      style:const TextStyle(fontSize: 13,                    color: Colors.white
                                      ),
                                    )),
@@ -195,8 +195,8 @@ class _CustomGridViewItemState extends State<CustomGridViewItem> {
                                FittedBox(
                                  fit: BoxFit.scaleDown,
                                  child: Text(
-                                   "${        prov.filterProduct!.isEmpty?
-                                   prov.products![idx].oldPrice!:prov.filterProduct![idx].oldPrice.toString()} \$",
+                                   "${        prov.filterProducts.isEmpty?
+                                   prov.products![idx].oldPrice??"":prov.filterProducts[idx].oldPrice??""} \$",
                                    style:const TextStyle(
                                      color: Colors.white,
                                      fontSize: 12.5,
@@ -229,7 +229,7 @@ class _CustomGridViewItemState extends State<CustomGridViewItem> {
        return  GridView.builder(
            shrinkWrap: true,
            physics: NeverScrollableScrollPhysics(),
-           itemCount: prov.filterProduct!.isEmpty?prov.products!.length:prov.filterProduct!.length,
+           itemCount: prov.filterProducts.isEmpty?prov.products!.length:prov.filterProducts.length,
            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                crossAxisCount: 2,
                crossAxisSpacing: 10,
@@ -263,8 +263,8 @@ class _CustomGridViewItemState extends State<CustomGridViewItem> {
                    Padding(
                      padding: const EdgeInsets.symmetric(horizontal: 5).w,
                      child: Text(
-                       prov.filterProduct!.isEmpty?
-                       prov.products![idx].name!:prov.filterProduct![idx].name.toString(),
+                       prov.filterProducts.isEmpty?
+                       prov.products![idx].name!:prov.filterProducts[idx].name.toString(),
                        style: const TextStyle(
                            fontWeight: FontWeight.bold,
                            fontSize: 16,
@@ -288,8 +288,8 @@ class _CustomGridViewItemState extends State<CustomGridViewItem> {
                                FittedBox(
                                    fit: BoxFit.scaleDown,
                                    child: Text(
-                                     "${        prov.filterProduct!.isEmpty?
-                                     prov.products![idx].price!:prov.filterProduct![idx].price.toString()} \$",
+                                     "${        prov.filterProducts.isEmpty?
+                                     prov.products![idx].price!:prov.filterProducts[idx].price.toString()} \$",
                                      style: TextStyle(fontSize: 13,                    color: Colors.white
                                      ),
                                    )),
@@ -299,8 +299,8 @@ class _CustomGridViewItemState extends State<CustomGridViewItem> {
                                FittedBox(
                                  fit: BoxFit.scaleDown,
                                  child: Text(
-                                   "${        prov.filterProduct!.isEmpty?
-                                   prov.products![idx].oldPrice!:prov.filterProduct![idx].oldPrice.toString()} \$",
+                                   "${        prov.filterProducts.isEmpty?
+                                   prov.products![idx].oldPrice!:prov.filterProducts[idx].oldPrice.toString()} \$",
                                    style: TextStyle(
                                      color: Colors.white,
                                      fontSize: 12.5,

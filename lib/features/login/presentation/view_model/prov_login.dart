@@ -8,11 +8,11 @@ import '../../data/repository/repo_login.dart';
   TextEditingController textEditingControllerEmail=TextEditingController();
   TextEditingController textEditingControllerPassword=TextEditingController();
 
-  String? _message;
+ late String _message;
   bool? _status;
-  String? _token;
- String get message=>_message!;
-  String get token=>_token!;
+late  String _token;
+ String get message=>_message;
+  String get token=>_token;
 
   bool get status=>_status!;
 
@@ -31,8 +31,8 @@ import '../../data/repository/repo_login.dart';
       var req=    await repoLogin.LogIn(email, paswword);
       _message=req.message;
       _status=req.status;
-      _token=req.token;
-      CasheHelper.setDataString(key: "token", value:_token! );
+      _token=req.token!;
+      CasheHelper.setDataString(key: "token", value:_token );
       debugPrint(CasheHelper.getDataString(key: "token"));
       notifyListeners();
 
